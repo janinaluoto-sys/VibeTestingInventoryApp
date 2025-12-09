@@ -122,6 +122,10 @@ app.put('/api/products/:id', (req, res) => {
   try {
     const { name, category, price, quantity, description, image } = req.body;
     
+    if (!name || !category || price === undefined || quantity === undefined) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
     const update = db.prepare(`
       UPDATE products 
       SET name = ?, category = ?, price = ?, quantity = ?, description = ?, image = ?
