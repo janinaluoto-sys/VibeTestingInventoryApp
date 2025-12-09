@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equestrian Gear Inventory</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>🐴 Equestrian Gear Inventory</h1>
+                <p class="tagline">Premium Horseback Riding Equipment</p>
+            </div>
+            <button class="btn btn-primary" onclick="openAddModal()">
+                <span>+</span> Add New Product
+            </button>
+        </header>
+
+        <div class="filters">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+            </div>
+            <div class="category-filter">
+                <label>Filter by Category:</label>
+                <select id="categoryFilter" onchange="filterProducts()">
+                    <option value="">All Categories</option>
+                    <option value="Saddles">Saddles</option>
+                    <option value="Footwear">Footwear</option>
+                    <option value="Safety Gear">Safety Gear</option>
+                    <option value="Apparel">Apparel</option>
+                    <option value="Tack">Tack</option>
+                    <option value="Horse Care">Horse Care</option>
+                    <option value="Training">Training</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="totalProducts">0</h3>
+                <p>Total Products</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalValue">$0</h3>
+                <p>Total Inventory Value</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="totalItems">0</h3>
+                <p>Total Items in Stock</p>
+            </div>
+        </div>
+
+        <div id="productsGrid" class="products-grid">
+            <!-- Products will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Product</h2>
+                <span class="close" onclick="closeAddModal()">&times;</span>
+            </div>
+            <form id="addProductForm" onsubmit="addProduct(event)">
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select name="category" required>
+                        <option value="Saddles">Saddles</option>
+                        <option value="Footwear">Footwear</option>
+                        <option value="Safety Gear">Safety Gear</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Tack">Tack</option>
+                        <option value="Horse Care">Horse Care</option>
+                        <option value="Training">Training</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price ($) *</label>
+                        <input type="number" name="price" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity *</label>
+                        <input type="number" name="quantity" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Emoji Icon</label>
+                    <input type="text" name="image" placeholder="🏇" maxlength="2">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Product</h2>
+                <span class="close" onclick="closeEditModal()">&times;</span>
+            </div>
+            <form id="editProductForm" onsubmit="updateProduct(event)">
+                <input type="hidden" name="id">
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select name="category" required>
+                        <option value="Saddles">Saddles</option>
+                        <option value="Footwear">Footwear</option>
+                        <option value="Safety Gear">Safety Gear</option>
+                        <option value="Apparel">Apparel</option>
+                        <option value="Tack">Tack</option>
+                        <option value="Horse Care">Horse Care</option>
+                        <option value="Training">Training</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price ($) *</label>
+                        <input type="number" name="price" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity *</label>
+                        <input type="number" name="quantity" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Emoji Icon</label>
+                    <input type="text" name="image" maxlength="2">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
